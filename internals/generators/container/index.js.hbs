@@ -1,0 +1,73 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+{{#if memo}}
+import React, { memo } from 'react';
+{{else}}
+import React from 'react';
+{{/if}}
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+{{#if wantHeaders}}
+import { Helmet } from 'react-helmet';
+{{/if}}
+{{#if wantMessages}}
+import { FormattedMessage } from 'react-intl';
+{{/if}}
+{{#if wantActionsAndReducer}}
+import { createStructuredSelector } from 'reselect';
+{{/if}}
+import { compose } from 'redux';
+import { wrapper } from "configureStore";
+{{#if wantActionsAndReducer}}
+import makeSelect{{name}} from './selectors';
+{{/if}}
+
+export function {{ name }}() {
+
+  return (
+    <div>
+    {{#if wantHeaders}}
+      <Helmet>
+        <title>{{name}}</title>
+        <meta name="description" content="Description of {{name}}" />
+      </Helmet>
+    {{/if}}
+    {{#if wantMessages}}
+      <FormattedMessage {...messages.header} />
+    {{/if}}
+    </div>
+  );
+}
+
+
+export const getStaticProps = wrapper.getStaticProps((store) => () => {
+  // store.dispatch();
+});
+
+{{ name }}.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+{{#if wantActionsAndReducer}}
+const mapStateToProps = createStructuredSelector({
+  {{ camelCase name }}: makeSelect{{name}}(),
+});
+{{/if}}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+{{#if wantActionsAndReducer}}
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+{{else}}
+const withConnect = connect(null, mapDispatchToProps);
+{{/if}}
+
+export default compose(
+  withConnect,
+{{#if memo}}
+  memo,
+{{/if}}
+)({{ name }});

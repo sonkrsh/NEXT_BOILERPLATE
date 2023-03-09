@@ -6,14 +6,35 @@
     "start": "next dev",
     "build": "next build",
     "start:build": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate": "plop --plopfile internals/generators/index.js",
+    "prettify": "prettier --write",
+    "serve-json": "json-server --watch db.json --port 4000"
   },
   "dependencies": {
     "@next/font": "13.1.1",
+    "@reduxjs/toolkit": "^1.9.1",
+    "axios": "^1.2.2",
+    "connected-react-router": "^6.9.3",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",
+    "history": "^5.3.0",
+    "immer": "^9.0.16",
+    "invariant": "^2.2.4",
+    "lodash": "^4.17.21",
     "next": "13.1.1",
+    "next-redux-wrapper": "git+https://github.com/sonkrsh/redux_WIP.git",
+    "prettier": "^2.8.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router": "^6.6.1",
+    "redux": "^4.2.0",
+    "redux-saga": "^1.2.2",
+    "reselect": "^4.1.7"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.1",
+    "plop": "^3.1.1"
   }
 }
